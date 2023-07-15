@@ -19,6 +19,7 @@ package org.apache.jasper.servlet;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -261,7 +262,8 @@ public class TldScanner {
         TldScannerCallback callback = new TldScannerCallback();
         scanner.scan(JarScanType.TLD, context, callback);
         if (callback.scanFoundNoTLDs()) {
-            log.info(Localizer.getMessage("jsp.tldCache.noTldSummary"));
+            String message = new java.lang.String(Localizer.getMessage("jsp.tldCache.noTldSummary").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+            log.info(message);
         }
     }
 
