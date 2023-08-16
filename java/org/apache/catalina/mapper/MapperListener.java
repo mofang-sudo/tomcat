@@ -99,13 +99,27 @@ public class MapperListener extends LifecycleMBeanBase implements ContainerListe
             return;
         }
 
+        /**
+         * Mapper 对象设置默认主机名称
+         */
         findDefaultHost();
 
+        /**
+         * 递归为每个容器添加 MapperListener
+         * 所有 Container 的 listener 都指向 MapperListener
+         * 好处：只会存在一个 Mapper 对象，就能把所有的映射全部保存下来（集中式管理）
+         */
         addListeners(engine);
 
+        /**
+         * 获取 servlet 引擎的子容器数组，engine 的子容器就是 host
+         */
         Container[] conHosts = engine.findChildren();
         for (Container conHost : conHosts) {
             Host host = (Host) conHost;
+            /**
+             * 如果 host 的状态不为 NEW，就向 Mapper 中添加
+             */
             if (!LifecycleState.NEW.equals(host.getState())) {
                 // Registering the host will register the context and wrappers
                 registerHost(host);

@@ -158,6 +158,8 @@
                resourceName="UserDatabase"/>
       </Realm>
 
+<!--      <Host name="localhost"  appBase="webapps"-->
+<!--            unpackWARs="true" autoDeploy="true" deployIgnore="^R.*">-->
       <Host name="localhost"  appBase="webapps"
             unpackWARs="true" autoDeploy="true">
 
@@ -174,6 +176,10 @@
                prefix="localhost_access_log" suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
 
+      </Host>
+
+      <Host name="www.noita.com"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true">
       </Host>
     </Engine>
   </Service>

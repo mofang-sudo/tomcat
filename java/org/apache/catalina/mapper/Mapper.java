@@ -1610,15 +1610,23 @@ public final class Mapper {
     }
 
     protected static final class ContextVersion extends MapElement<Context> {
+        // Context 的匹配路径
         public final String path;
+        // 没有直接用处，主要目的是为了计算 Context 中的 nesting
         public final int slashCount;
         public final WebResourceRoot resources;
+        // context 的欢迎页面，也就是看看是否有匹配的默认首页文件
         public String[] welcomeResources;
+        // 默认匹配（仅有一个），当所有都不满足时指定的 URL，比如 /
         public MappedWrapper defaultWrapper = null;
+        // 精准匹配（一个 context 下有多组 wrapper），完整的匹配到 URL
         public MappedWrapper[] exactWrappers = new MappedWrapper[0];
+        // 路径（通配符）匹配，匹配前面的大多数 URL，后面任意。比如：servlet-demo
         public MappedWrapper[] wildcardWrappers = new MappedWrapper[0];
+        // 扩展匹配，以扩展名的形式匹配 URL。比如 *。jsp、*。jspx
         public MappedWrapper[] extensionWrappers = new MappedWrapper[0];
         public int nesting = 0;
+        // context 是否可用，是否被暂停使用
         private volatile boolean paused;
 
         public ContextVersion(String version, String path, int slashCount, Context context, WebResourceRoot resources,
